@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuratore Prompt Transformer</title>
+    <title>Configuratore Prompt Transformer - Semplificato</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -25,7 +25,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -52,20 +52,20 @@
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         label {
             display: block;
             font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
             color: var(--text);
         }
 
-        input[type="text"] {
+        input[type="text"], input[type="number"] {
             width: 100%;
-            padding: 0.5rem;
+            padding: 0.75rem;
             border: 1px solid var(--border);
             border-radius: 0.375rem;
             font-size: 0.875rem;
@@ -73,7 +73,7 @@
             transition: border-color 0.2s;
         }
 
-        input[type="text"]:focus {
+        input:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
@@ -86,7 +86,7 @@
 
         textarea {
             width: 100%;
-            height: 400px;
+            height: 380px;
             padding: 1rem;
             border: 1px solid var(--border);
             border-radius: 0.375rem;
@@ -126,6 +126,7 @@
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
         .toast.show {
@@ -138,59 +139,26 @@
     <div class="container">
         <!-- Colonna dei campi di input -->
         <div class="card">
-            <h2>Parametri Veicolo</h2>
+            <h2>Impostazioni Rapide</h2>
+            <p style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 1.5rem;">
+                Compila i 4 campi qui sotto. Il resto del prompt si adatterà automaticamente in modo coerente.
+            </p>
             <form id="promptForm">
                 <div class="form-group">
-                    <label>Nome del Veicolo</label>
-                    <input type="text" id="NOME_DEL_VEICOLO" placeholder="es: Maggiolino Volkswagen">
+                    <label>Modello del Veicolo</label>
+                    <input type="text" id="modello" placeholder="es: Maggiolino Volkswagen, Vespa 50 Special...">
                 </div>
                 <div class="form-group">
-                    <label>Colore e Tipo del Veicolo (in inglese)</label>
-                    <input type="text" id="COLORE_E_TIPO_DEL_VEICOLO" placeholder="es: vintage, bright blue classic sedan">
+                    <label>Colore (in inglese)</label>
+                    <input type="text" id="colore" placeholder="es: bright blue, matte black, cherry red...">
                 </div>
                 <div class="form-group">
-                    <label>Tipo del Veicolo (in inglese)</label>
-                    <input type="text" id="TIPO_DEL_VEICOLO" placeholder="es: micro-car">
+                    <label>Numero di Ruote</label>
+                    <input type="number" id="ruote" placeholder="es: 2, 3, 4...">
                 </div>
                 <div class="form-group">
-                    <label>Forma del Fanale (in inglese)</label>
-                    <input type="text" id="FORMA_DEL_FANALE" placeholder="es: round">
-                </div>
-                <div class="form-group">
-                    <label>Carico Opzionale (in inglese)</label>
-                    <input type="text" id="CARICO_OPZIONALE" placeholder="es: a small suitcase on a rear rack">
-                </div>
-                <div class="form-group">
-                    <label>Targa Opzionale</label>
-                    <input type="text" id="TARGA_OPZIONALE" placeholder="es: MI 1974">
-                </div>
-                <div class="form-group">
-                    <label>Dettaglio Ruote (in inglese)</label>
-                    <input type="text" id="O_ALTRO_NUMERO_DI_RUOTE" placeholder="es: four wheels">
-                </div>
-                <div class="form-group">
-                    <label>Numero di Ruote (cifra)</label>
-                    <input type="text" id="NUMERO_DI_RUOTE" placeholder="es: 4">
-                </div>
-                <div class="form-group">
-                    <label>Fanale e Forma (MAIUSCOLO)</label>
-                    <input type="text" id="FANALE_E_FORMA" placeholder="es: FANALE TONDO">
-                </div>
-                <div class="form-group">
-                    <label>Modello del Veicolo (MAIUSCOLO)</label>
-                    <input type="text" id="MODELLO_DEL_VEICOLO" placeholder="es: BEETLE 1303">
-                </div>
-                <div class="form-group">
-                    <label>Nome Veicolo Capitalizzato (Titolo)</label>
-                    <input type="text" id="NOME_DEL_VEICOLO_CAPITALIZZATO" placeholder="es: VW BEETLE">
-                </div>
-                <div class="form-group">
-                    <label>Colore del Veicolo (in inglese)</label>
-                    <input type="text" id="COLORE_DEL_VEICOLO" placeholder="es: bright blue">
-                </div>
-                <div class="form-group">
-                    <label>Posizione Ruote sul Robot (in inglese)</label>
-                    <input type="text" id="DOVE_SONO_LE_RUOTE_SUL_ROBOT" placeholder="es: on the ankles of its feet and integrated into its shoulders">
+                    <label>Targa</label>
+                    <input type="text" id="targa" placeholder="es: MI 1974, RM 8273...">
                 </div>
             </form>
         </div>
@@ -208,23 +176,21 @@
     <div id="toast" class="toast">Prompt copiato negli appunti!</div>
 
     <script>
-        const template = `A detailed, high-resolution diptych photograph displaying two panels side-by-side, detailing a [NOME_DEL_VEICOLO] Transformer concept, with a strong emphasis on mechanical coherence. The left panel shows a classic, vintage [COLORE_E_TIPO_DEL_VEICOLO] parked on a cobblestone street in a historic Italian borgo, "Borgo Vecchio". The [TIPO_DEL_VEICOLO] features a distinct [FORMA_DEL_FANALE] front headlight, mounted on the front grill. Its small rear cargo bed holds [CARICO_OPZIONALE]. Its small Italian license plate reads "[TARGA_OPZIONALE]". All of its original wheels (one front, two rear, [O_ALTRO_NUMERO_DI_RUOTE]) are visible. Text below reads: "FORMA VEICOLO ([MODELLO_DEL_VEICOLO] - [NUMERO_DI_RUOTE] RUOTE) - [FANALE_E_FORMA]". The right panel, in the same cobblestone street setting, features the [NOME_DEL_VEICOLO] transformed into a complex, standing humanoid mechanical robot. The robot is built from the [NOME_DEL_VEICOLO]'s panels and mechanical parts, and its entire structure incorporates *all* of the vehicle's wheels (e.g., [DOVE_SONO_LE_RUOTE_SUL_ROBOT]). A large [FORMA_DEL_FANALE] sensor/light is centrally located on the robot's chest, matching the vehicle's headlight. The robot's armor clearly uses the [COLORE_DEL_VEICOLO] bodywork. Text below reads: "FORMA ROBOT (CON [NUMERO_DI_RUOTE] RUOTE VISIBILI E [FANALE_E_FORMA] COERENTE)". A main title banner above both panels reads: "[NOME_DEL_VEICOLO_CAPITALIZZATO] TRANSFORMER: MECCANICA E COERENZA". Both panels include the same background of stone buildings, terracotta pots with plants, and warm, diffused daylight.`;
-
         const inputs = document.querySelectorAll('input');
         const output = document.getElementById('output');
 
-        // Funzione per aggiornare il prompt
         function updatePrompt() {
-            let result = template;
-            
-            inputs.forEach(input => {
-                // Usa il valore inserito o, se vuoto, mantieni il placeholder tra parentesi quadre
-                const value = input.value.trim() !== '' ? input.value : `[${input.id}]`;
-                
-                // Crea una RegExp globale per sostituire tutte le occorrenze di quel tag
-                const regex = new RegExp(`\\[${input.id}\\]`, 'g');
-                result = result.replace(regex, value);
-            });
+            // Recupera i valori o imposta i placeholder
+            const modello = document.getElementById('modello').value.trim() || '[MODELLO]';
+            const colore = document.getElementById('colore').value.trim() || '[COLORE]';
+            const ruote = document.getElementById('ruote').value.trim() || '[NUMERO]';
+            const targa = document.getElementById('targa').value.trim() || '[TARGA]';
+
+            // Crea versioni in maiuscolo per i titoli
+            const modelloCaps = modello !== '[MODELLO]' ? modello.toUpperCase() : '[MODELLO MAIUSCOLO]';
+
+            // Genera il prompt con la logica integrata per far quadrare le frasi
+            const result = `A detailed, high-resolution diptych photograph displaying two panels side-by-side, detailing a ${modello} Transformer concept, with a strong emphasis on mechanical coherence. The left panel shows a classic, vintage ${colore} vehicle parked on a cobblestone street in a historic Italian borgo, "Borgo Vecchio". The vehicle features a distinct round front headlight, mounted on the front grill. Its small rear cargo bed holds vintage luggage on a custom rack. Its small Italian license plate reads "${targa}". All of its original wheels (${ruote} wheels) are visible. Text below reads: "FORMA VEICOLO (${modelloCaps} - ${ruote} RUOTE) - FANALE VINTAGE". The right panel, in the same cobblestone street setting, features the ${modello} transformed into a complex, standing humanoid mechanical robot. The robot is built from the ${modello}'s panels and mechanical parts, and its entire structure incorporates *all* of the vehicle's wheels (integrated perfectly into its mechanical joints and limbs). A large round sensor/light is centrally located on the robot's chest, matching the vehicle's headlight. The robot's armor clearly uses the ${colore} bodywork. Text below reads: "FORMA ROBOT (CON ${ruote} RUOTE VISIBILI E FANALE COERENTE)". A main title banner above both panels reads: "${modelloCaps} TRANSFORMER: MECCANICA E COERENZA". Both panels include the same background of stone buildings, terracotta pots with plants, and warm, diffused daylight.`;
 
             output.value = result;
         }
@@ -234,7 +200,7 @@
             input.addEventListener('input', updatePrompt);
         });
 
-        // Genera il prompt iniziale (con i placeholder) all'avvio
+        // Genera il prompt iniziale all'avvio
         updatePrompt();
 
         // Funzione per copiare negli appunti
@@ -248,7 +214,6 @@
                 toast.classList.remove('show');
             }, 3000);
             
-            // Deseleziona il testo
             window.getSelection().removeAllRanges();
         }
     </script>
