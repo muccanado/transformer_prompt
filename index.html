@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuratore Prompt Transformer - Semplificato</title>
+    <title>Configuratore Prompt Transformer - Definitivo</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -139,26 +139,26 @@
     <div class="container">
         <!-- Colonna dei campi di input -->
         <div class="card">
-            <h2>Impostazioni Rapide</h2>
+            <h2>Impostazioni Veicolo</h2>
             <p style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 1.5rem;">
-                Compila i 4 campi qui sotto. Il resto del prompt si adatterà automaticamente in modo coerente.
+                Inserisci i dati essenziali. Il prompt generato sarà ottimizzato per mantenere la carrozzeria pulita, i fari coerenti col modello e il numero di ruote rigorosamente esatto.
             </p>
             <form id="promptForm">
                 <div class="form-group">
                     <label>Modello del Veicolo</label>
-                    <input type="text" id="modello" placeholder="es: Maggiolino Volkswagen, Vespa 50 Special...">
+                    <input type="text" id="modello" placeholder="es: Fiat Uno Fire, Vespa 50 Special...">
                 </div>
                 <div class="form-group">
                     <label>Colore (in inglese)</label>
-                    <input type="text" id="colore" placeholder="es: bright blue, matte black, cherry red...">
+                    <input type="text" id="colore" placeholder="es: white, bright blue, matte black...">
                 </div>
                 <div class="form-group">
-                    <label>Numero di Ruote</label>
-                    <input type="number" id="ruote" placeholder="es: 2, 3, 4...">
+                    <label>Numero totale di Ruote</label>
+                    <input type="number" id="ruote" placeholder="es: 4">
                 </div>
                 <div class="form-group">
                     <label>Targa</label>
-                    <input type="text" id="targa" placeholder="es: MI 1974, RM 8273...">
+                    <input type="text" id="targa" placeholder="es: 84ce56, MI 1974...">
                 </div>
             </form>
         </div>
@@ -189,8 +189,8 @@
             // Crea versioni in maiuscolo per i titoli
             const modelloCaps = modello !== '[MODELLO]' ? modello.toUpperCase() : '[MODELLO MAIUSCOLO]';
 
-            // Genera il prompt con la logica integrata per far quadrare le frasi
-            const result = `A detailed, high-resolution diptych photograph displaying two panels side-by-side, detailing a ${modello} Transformer concept, with a strong emphasis on mechanical coherence. The left panel shows a classic, vintage ${colore} vehicle parked on a cobblestone street in a historic Italian borgo, "Borgo Vecchio". The vehicle features a distinct round front headlight, mounted on the front grill. Its small rear cargo bed holds vintage luggage on a custom rack. Its small Italian license plate reads "${targa}". All of its original wheels (${ruote} wheels) are visible. Text below reads: "FORMA VEICOLO (${modelloCaps} - ${ruote} RUOTE) - FANALE VINTAGE". The right panel, in the same cobblestone street setting, features the ${modello} transformed into a complex, standing humanoid mechanical robot. The robot is built from the ${modello}'s panels and mechanical parts, and its entire structure incorporates *all* of the vehicle's wheels (integrated perfectly into its mechanical joints and limbs). A large round sensor/light is centrally located on the robot's chest, matching the vehicle's headlight. The robot's armor clearly uses the ${colore} bodywork. Text below reads: "FORMA ROBOT (CON ${ruote} RUOTE VISIBILI E FANALE COERENTE)". A main title banner above both panels reads: "${modelloCaps} TRANSFORMER: MECCANICA E COERENZA". Both panels include the same background of stone buildings, terracotta pots with plants, and warm, diffused daylight.`;
+            // Template aggiornato: niente portapacchi, fari neutri/coerenti, numero di ruote rigoroso
+            const result = `A detailed, high-resolution diptych photograph displaying two panels side-by-side, detailing a ${modello} Transformer concept, with a strong emphasis on mechanical coherence. The left panel shows a clean, standard ${colore} ${modello} parked on a cobblestone street in a historic Italian borgo, "Borgo Vecchio". The vehicle features its original, distinctive front headlights mounted on the front grill, with no extra luggage or roof racks. Its small Italian license plate reads "${targa}". All of its original wheels (${ruote} wheels in total) are visible. Text below reads: "FORMA VEICOLO (${modelloCaps} - ${ruote} RUOTE)". The right panel, in the same cobblestone street setting, features the ${modello} transformed into a complex, standing humanoid mechanical robot. The robot is built from the ${modello}'s panels and mechanical parts, and its entire structure incorporates the vehicle's wheels (integrated perfectly into its mechanical joints and limbs, strictly limited to exactly ${ruote} wheels total). A central sensor/light array is located on the robot's chest, matching the shape and style of the vehicle's original headlights. The robot's armor clearly uses the ${colore} bodywork. Text below reads: "FORMA ROBOT (CON ${ruote} RUOTE VISIBILI E MECCANICA COERENTE)". A single, continuous main title banner centered above both panels reads: "${modelloCaps} TRANSFORMER: MECCANICA E COERENZA". Both panels include the same background of stone buildings, terracotta pots with plants, and warm, diffused daylight.`;
 
             output.value = result;
         }
